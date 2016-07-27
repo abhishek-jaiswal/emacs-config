@@ -11,6 +11,8 @@
   helm-projectile
   projectile
   project-explorer
+  spaceline
+  magit
   ))
 
 ; list the repositories containing them
@@ -40,3 +42,12 @@
 
 
 (load-theme 'zenburn t)
+
+;; Use space instead of tabs
+(setq indent-tabs-mode -1)
+
+;; Spaceline-config
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
+(setq spaceline-minor-modes-p nil)
+(require 'magit)
