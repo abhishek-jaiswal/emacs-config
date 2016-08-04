@@ -1,53 +1,33 @@
-;;--------------------------------------------------------------------
-;; Package initializations
-;;--------------------------------------------------------------------
+;; path where settings files are kept
+(add-to-list 'load-path "~/.emacs.d/settings")
 
-; list the packages you want
-(setq package-list '(
-  py-autopep8
-  yaml-mode
-  zenburn-theme
-  helm
-  helm-projectile
-  projectile
-  project-explorer
-  spaceline
-  magit
-  ))
+;; path to where plugins are kept
+(setq plugin-path "~/.emacs.d/el-get/")
 
-; list the repositories containing them
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+; define various custom functions
+(require 'custom-functions)
 
-; activate all the packages (in particular autoloads)
-(package-initialize)
+;; install dependencies with el-get
+(require 'el-get-settings)
 
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
+; color theme
+(add-to-list 'custom-theme-load-path (make-plugin-path "color-theme-solarized"))
+(load-theme 'solarized 1)
+(setq solarized-termcolors 256)
 
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+(require 'faces)
+(if (system-is-mac)
+    (set-face-attribute 'default nil
+            :foundry "apple"
+:family "DejaVu_Sans_Mono"))
 
 
-;; Show line number on left and column number on mode line
-;(global-linum-mode t)
-;(setq linum-format "%5d \u2502 ")
-;(line-number-mode t)
-;(setq line-number-display-limit-width 10000)
-;(column-number-mode t)
 
 
-(load-theme 'zenburn t)
 
-;; Use space instead of tabs
-(setq indent-tabs-mode -1)
-
-;; Spaceline-config
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
-(setq spaceline-minor-modes-p nil)
-(require 'magit)
+;---------------------------------------------------------------------
+;; Put auto 'custom' changes in a separate file (this is stuff like
+;; custom-set-faces and custom-set-variables)
+(load
+ (setq custom-file (expand-file-name "settings/custom.el" user-emacs-directory))
+'noerror)
