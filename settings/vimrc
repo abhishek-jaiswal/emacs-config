@@ -1,0 +1,26 @@
+"vundle
+
+set nocompatible
+filetype off
+"set mouse=a
+set hidden
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+"git interface
+Plugin 'vim-airline/vim-airline'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+
+"air line settings
+set laststatus=2
+
+"Theme settings
+let g:solarized_termcolors=256
+
+"stheme settings
+syntax enable
+set background=dark
+colorscheme solarized
